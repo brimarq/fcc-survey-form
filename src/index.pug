@@ -1,0 +1,80 @@
+
+- var dropdown_options = ["0-1 year", "1-3 years", "3-5 years", "5-10 years", "10+ years"];
+- var dropdown2_options = ["Linux", "MacOS", "Windows", "Other"]
+- var specializations = ["Web", "Mobile", "Desktop", "Database", "Embedded", "Data science", "QA/test", "Game/graphics", "DevOps", "Student", "Hobbyist", "Other"]
+- var languages = ["JavaScript", "HTML/CSS", "SQL", "Python", "Java", "Shell", "C#", "PHP", "C++", "TypeScript", "C", "Ruby", "Go", "Assembly", "Swift", "Kotlin", "R", "VBA", "Objective-C", "Scala", "Rust", "Dart", "Elixir", "Clojure"];
+
+.section
+  .container
+    .box
+      form#survey-form(action="https://www.freecodecamp.com/email-submit" method="post")
+        
+        .form-header.field
+          h1.title#title Developer Survey
+          p.subtitle#description A quick survey of your skillset.
+            
+
+        .field.is-horizontal
+          .field-body
+            .field
+              label.label#name-label(for="name") Name:
+              .control
+                input.input#name(type="text" name="name" placeholder="Enter full name" required)
+
+            .field
+              label.label#email-label(for="email") Email: 
+              .control
+                input.input#email(type="email" name="email" placeholder="Enter valid email address" required) 
+
+        .field.is-horizontal
+          .field-body
+            .field
+              label.label#number-label(for="number") Age:
+              .control
+                input.input#number(type="number" name="number" min="18" max="100" placeholder="Enter age")
+
+            .field
+              label.label(for="dropdown") Experience:
+              .control
+                .select.is-fullwidth
+                  select#dropdown(name="dropdown" required)
+                    option(value="" disabled selected hidden) Choose level...
+                    each option in dropdown_options
+                      option(value=option) #{option}
+
+            .field
+              label.label(for="dropdown2") Preferred OS:
+              .control
+                .select.is-fullwidth
+                  select#dropdown2(name="dropdown2" required)
+                    option(value="" disabled selected hidden) Choose one...
+                    each option in dropdown2_options
+                      option #{option}
+
+        .field
+          label.label Specialization:
+          .control.field-checkable-group.input
+            each item in specializations
+              label.radio
+                input(type="radio" name="specialization" value=item.toLowerCase()) 
+                span.checkmark
+                span.checkable-label-text #{item}
+
+        .field
+          label.label Languages:
+          .control.field-checkable-group.input
+            each item in languages
+              label.checkbox
+                input(type="checkbox" value=item.toLowerCase())
+                span.checkmark
+                span.checkable-label-text #{item}
+
+        .field
+          label.label Additional technologies used:
+          .control
+            textarea.textarea(placeholder="Enter any additional languages/libraries/frameworks used")
+
+        .field
+          .control
+            button.button.is-link#submit(type='submit') Submit
+

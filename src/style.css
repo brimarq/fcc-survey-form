@@ -1,1 +1,211 @@
-html, body { height: 100vh; min-height: 100vh; }
+@use postcss-simple-vars;
+@use postcss-nested;
+
+$primary-font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
+
+$radius: 4px;
+
+
+$black:        hsl(0, 0%, 4%);
+$black-bis:    hsl(0, 0%, 7%);
+$black-ter:    hsl(0, 0%, 14%);
+
+$grey-darker:  hsl(0, 0%, 21%);
+$grey-dark:    hsl(0, 0%, 29%);
+$grey:         hsl(0, 0%, 48%);
+$grey-light:   hsl(0, 0%, 71%);
+$grey-lighter: hsl(0, 0%, 86%);
+
+$white-ter:    hsl(0, 0%, 96%);
+$white-bis:    hsl(0, 0%, 98%);
+$white:        hsl(0, 0%, 100%);
+
+$orange:       hsl(14,  100%, 53%);
+$yellow:       hsl(48,  100%, 67%);
+$green:        hsl(141, 71%,  48%);
+$turquoise:    hsl(171, 100%, 41%);
+$cyan:         hsl(204, 86%,  53%);
+$blue:         hsl(217, 71%,  53%);
+$purple:       hsl(271, 100%, 71%);
+$red:          hsl(348, 100%, 61%);
+
+
+$bg-eggradients-television-star: linear-gradient(315deg, #4d4855 0%, #000000 74%) fixed #4d4855;
+$bg-eggradients-calm-celebration: linear-gradient(315deg, #537895 0%, #09203f 74%) fixed #537895;
+
+$section-padding: 3rem 1.5rem;
+
+$primary-color: #1abc9c;
+$primary-color-hover: #1fdeb8;
+
+$container-max-width: 600px;
+
+$checkable-button-size: 1em;
+$checkable-padding-left: calc($checkable-button-size * 1.2);
+$checkable-background-color: transparent;
+$checkable-checked-center-color: $white;
+$radio-checked-center-size: calc($checkable-button-size * 0.33);
+$checkbox-check-border-width: 2px;
+
+
+
+
+
+/* #fcc_test_suite_wrapper {
+  display: none;
+} */
+
+html, body { height: 100%; }
+
+html {
+  background: $bg-eggradients-television-star;
+}
+
+.section {
+  @media screen and (max-width: $container-max-width) {
+    padding: 0;
+  }
+}
+
+.container {
+  max-width: $container-max-width;
+  /* border: 1px solid red; */
+}
+
+/* .container:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: hsla(0, 0%, 100%, .1);
+  background: inherit;
+  box-shadow: inset 0 0 200px rgba(255, 255, 255, .05);
+} */
+
+/* #survey-form {
+  padding: 2em;
+  border-radius: 4px;
+} */
+
+.box {
+  background: hsla(0, 0%, 100%, .1);
+  box-shadow: inset 0 0 200px rgba(255, 255, 255, .05);
+}
+
+.input, .select select, .textarea {
+  border-width: 1px;
+  background: none;
+  color: #dbdee0;
+}
+
+.input, .textarea {
+  &::placeholder { color: #8c9b9d; }
+}
+
+select:invalid {
+  color: #8c9b9d;
+}
+
+option[value=""][disabled] {
+  display: none;
+}
+
+.field-checkable-group {
+  padding: 0 .3em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: .5em;
+
+  @media screen and (min-width: 769px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &.input {height: auto; padding: 1em;}
+
+  .radio, .checkbox {
+    display: block;
+    /* display: flex;
+    align-items: center;
+    justify-content: flex-start; */
+    
+    margin: 0;
+    padding-left: $checkable-padding-left;
+
+    input, span {
+      display: block;
+      /* height: 100%; */
+    }
+
+    .checkable-label-text {
+      /* padding-left: 0.5em; */
+    }
+    
+    input {
+      position: absolute;
+      opacity: 0;
+      height: 0;
+      width: 0;
+    }
+
+    input:checked ~ .checkmark {
+      background-color: $primary-color;
+      border-color: $primary-color-hover;
+      &:after {
+        display: block;
+      }
+    }
+
+    &:hover {
+      input ~ .checkmark {
+        border-color: $primary-color-hover;
+      }
+      input:checked ~ .checkmark {
+        background-color: $primary-color-hover;
+      }
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: $checkable-button-size;
+      width: $checkable-button-size;
+      background-color: $checkable-background-color;
+      border: 1px solid #dbdee0;
+      &:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+    }
+    
+  }
+}
+
+.radio .checkmark {
+  border-radius: 50%;
+  &:after {
+    background: $checkable-checked-center-color;
+    width: $radio-checked-center-size;
+    height: $radio-checked-center-size;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+  }
+}
+
+.checkbox .checkmark {
+  border-radius: 4px;
+  &:after {
+    top: 9%;
+    left: 34%;
+    width: $radio-checked-center-size;
+    height: calc($radio-checked-center-size * 2);
+    border: solid $checkable-checked-center-color;
+    border-width: 0 $checkbox-check-border-width $checkbox-check-border-width 0;
+    transform: rotate(45deg);
+  }
+}
