@@ -35,21 +35,24 @@ $bg-eggradients-calm-celebration: linear-gradient(315deg, #537895 0%, #09203f 74
 
 $section-padding: 3rem 1.5rem;
 
-$primary-color: #1abc9c;
-$primary-color-hover: #1fdeb8;
+$primary-color: hsl(168, 76%, 42%);
+$primary-color-hover: hsl(168, 75%, 50%);
+$body-text-color: hsl(204, 7%, 87%); /* #dbdee0 */
+$input-border-color: hsl(204, 7%, 87%);
+$input-border-color-hover: 	hsl(187, 8%, 58%); /* #8c9b9d  - subtitle color, placeholder color */
 
 $container-max-width: 600px;
 
 $checkable-button-size: 1em;
-$checkable-padding-left: calc($checkable-button-size * 1.2);
+$checkable-padding-left: calc($checkable-button-size * 1.5);
 $checkable-background-color: transparent;
 $checkable-checked-center-color: $white;
-$radio-checked-center-size: calc($checkable-button-size * 0.33);
-$checkbox-check-border-width: 2px;
-
-
-
-
+$radio-checked-center-size: calc($checkable-button-size * 0.5);
+$checkbox-checked-center-height: calc($checkable-button-size * .8);
+$checkbox-checked-center-width: calc($checkbox-checked-center-height / 2);
+$checkbox-checked-center-top: 0;
+$checkbox-checked-center-left: calc(50% - ($checkbox-checked-center-width / 2));
+$checkbox-check-border-width: 3px;
 
 /* #fcc_test_suite_wrapper {
   display: none;
@@ -69,25 +72,7 @@ html {
 
 .container {
   max-width: $container-max-width;
-  /* border: 1px solid red; */
 }
-
-/* .container:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: hsla(0, 0%, 100%, .1);
-  background: inherit;
-  box-shadow: inset 0 0 200px rgba(255, 255, 255, .05);
-} */
-
-/* #survey-form {
-  padding: 2em;
-  border-radius: 4px;
-} */
 
 .box {
   background: hsla(0, 0%, 100%, .1);
@@ -96,8 +81,15 @@ html {
 
 .input, .select select, .textarea {
   border-width: 1px;
+  border-color: $input-border-color;
   background: none;
-  color: #dbdee0;
+  color: $body-text-color;
+  &:hover {
+    border-color: $input-border-color-hover;
+    &:focus {
+      border-color: $primary-color;
+    }
+  }
 }
 
 .input, .textarea {
@@ -121,67 +113,65 @@ option[value=""][disabled] {
   @media screen and (min-width: 769px) {
     grid-template-columns: repeat(4, 1fr);
   }
+}
 
-  &.input {height: auto; padding: 1em;}
-
+.field-checkable-group.input {
+  height: auto; 
+  padding: 1em;
   .radio, .checkbox {
-    display: block;
-    /* display: flex;
-    align-items: center;
-    justify-content: flex-start; */
-    
     margin: 0;
-    padding-left: $checkable-padding-left;
+  }
+}
 
-    input, span {
-      display: block;
-      /* height: 100%; */
-    }
+.radio, .checkbox {
+  display: block;
+  padding-left: $checkable-padding-left;
 
-    .checkable-label-text {
-      /* padding-left: 0.5em; */
-    }
-    
-    input {
-      position: absolute;
-      opacity: 0;
-      height: 0;
-      width: 0;
-    }
+  input, span {
+    display: block;
+  }
+  
+  input {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
 
-    input:checked ~ .checkmark {
+    &:checked ~ .checkmark {
       background-color: $primary-color;
       border-color: $primary-color-hover;
+      border: none;
       &:after {
         display: block;
       }
     }
-
-    &:hover {
-      input ~ .checkmark {
-        border-color: $primary-color-hover;
-      }
-      input:checked ~ .checkmark {
-        background-color: $primary-color-hover;
-      }
-    }
-
-    .checkmark {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: $checkable-button-size;
-      width: $checkable-button-size;
-      background-color: $checkable-background-color;
-      border: 1px solid #dbdee0;
-      &:after {
-        content: "";
-        position: absolute;
-        display: none;
-      }
-    }
-    
   }
+
+  &:hover {
+    input ~ .checkmark {
+      border-color: $primary-color-hover;
+    }
+    input:checked ~ .checkmark {
+      background-color: $primary-color-hover;
+    }
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: $checkable-button-size;
+    width: $checkable-button-size;
+    background-color: $checkable-background-color;
+    border: 1px solid #dbdee0;
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+  }
+  
 }
 
 .radio .checkmark {
@@ -200,10 +190,10 @@ option[value=""][disabled] {
 .checkbox .checkmark {
   border-radius: 4px;
   &:after {
-    top: 9%;
-    left: 34%;
-    width: $radio-checked-center-size;
-    height: calc($radio-checked-center-size * 2);
+    top: $checkbox-checked-center-top;
+    left: $checkbox-checked-center-left;
+    width: $checkbox-checked-center-width;
+    height: $checkbox-checked-center-height;
     border: solid $checkable-checked-center-color;
     border-width: 0 $checkbox-check-border-width $checkbox-check-border-width 0;
     transform: rotate(45deg);
