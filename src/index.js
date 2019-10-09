@@ -1,5 +1,4 @@
-// import 'bulma/css/bulma.css';
-import 'bulmaswatch/darkly/bulmaswatch.min.css';
+import 'bulmaswatch/materia/bulmaswatch.min.css';
 import './style.css';
 import './script.js';
 

@@ -7,6 +7,7 @@
 .section
   .container
     .box
+      
       form#survey-form(action="https://www.freecodecamp.com/email-submit" method="post")
         
         .form-header.field
@@ -25,7 +26,7 @@
               label.label#email-label(for="email") Email: 
               .control
                 input.input#email(type="email" name="email" placeholder="Enter valid email address" required) 
-
+        
         .field.is-horizontal
           .field-body
             .field
@@ -53,7 +54,7 @@
 
         .field
           label.label Specialization:
-          .control.field-checkable-group.input
+          .control.field-checkable-group
             each item in specializations
               label.radio
                 input(type="radio" name="specialization" value=item.toLowerCase()) 
@@ -62,7 +63,7 @@
 
         .field
           label.label Languages:
-          .control.field-checkable-group.input
+          .control.field-checkable-group
             each item in languages
               label.checkbox
                 input(type="checkbox" value=item.toLowerCase())
