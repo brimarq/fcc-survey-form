@@ -1,58 +1,29 @@
 @use postcss-simple-vars;
 @use postcss-nested;
 
-$primary-font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
+/* Colors */
+$materia-color-primary: hsl(231, 48%, 48%);
+$materia-color-blue: hsl(207, 90%, 54%);
+$white-hsl: 0, 0%, 100%;
+$materia-color-primary-hs: 231, 48%;
+$html-background: linear-gradient(315deg, hsl($materia-color-primary-hs, 30%) 0%, hsl($materia-color-primary-hs, 15%) 50%) fixed hsl($materia-color-primary-hs, 15%);
+$materia-color-body-text-inverted-hsl: 0, 0%, 79%;
+$materia-color-body-text-inverted: hsl($materia-color-body-text-inverted-hsl);
+$placeholder-text-color: hsla($materia-color-body-text-inverted-hsl, 0.3);
+$checkmark-background-color: hsla($materia-color-body-text-inverted-hsl, 0.3);
+$checkmark-background-color-hover: hsla($materia-color-body-text-inverted-hsl, 0.45);
 
-$radius: 4px;
-
-
-$black:        hsl(0, 0%, 4%);
-$black-bis:    hsl(0, 0%, 7%);
-$black-ter:    hsl(0, 0%, 14%);
-
-$grey-darker:  hsl(0, 0%, 21%);
-$grey-dark:    hsl(0, 0%, 29%);
-$grey:         hsl(0, 0%, 48%);
-$grey-light:   hsl(0, 0%, 71%);
-$grey-lighter: hsl(0, 0%, 86%);
-
-$white-ter:    hsl(0, 0%, 96%);
-$white-bis:    hsl(0, 0%, 98%);
-$white:        hsl(0, 0%, 100%);
-
-$orange:       hsl(14,  100%, 53%);
-$yellow:       hsl(48,  100%, 67%);
-$green:        hsl(141, 71%,  48%);
-$turquoise:    hsl(171, 100%, 41%);
-$cyan:         hsl(204, 86%,  53%);
-$blue:         hsl(217, 71%,  53%);
-$purple:       hsl(271, 100%, 71%);
-$red:          hsl(348, 100%, 61%);
-
-
-$bg-eggradients-television-star: linear-gradient(315deg, #4d4855 0%, #000000 74%) fixed #4d4855;
-$bg-eggradients-calm-celebration: linear-gradient(315deg, #537895 0%, #09203f 74%) fixed #537895;
-
-$section-padding: 3rem 1.5rem;
-
-$primary-color: hsl(168, 76%, 42%);
-$primary-color-hover: hsl(168, 75%, 50%);
-$body-text-color: hsl(204, 7%, 87%); /* #dbdee0 */
-$input-border-color: hsl(204, 7%, 87%);
-$input-border-color-hover: 	hsl(187, 8%, 58%); /* #8c9b9d  - subtitle color, placeholder color */
-
+/* Dimensions */
 $container-max-width: 600px;
-
-$checkable-button-size: 1em;
-$checkable-padding-left: calc($checkable-button-size * 1.5);
-$checkable-background-color: transparent;
-$checkable-checked-center-color: $white;
-$radio-checked-center-size: calc($checkable-button-size * 0.5);
-$checkbox-checked-center-height: calc($checkable-button-size * .8);
+$checkmark-size: 1em;
+$checkable-padding-left: calc($checkmark-size * 1.5);
+$checkmark-checked-center-color: hsl($white-hsl);
+$radio-checked-center-size: calc($checkmark-size * 0.4);
+$checkbox-checked-center-height: calc($checkmark-size * .75);
 $checkbox-checked-center-width: calc($checkbox-checked-center-height / 2);
 $checkbox-checked-center-top: 0;
 $checkbox-checked-center-left: calc(50% - ($checkbox-checked-center-width / 2));
-$checkbox-check-border-width: 3px;
+$checkbox-check-border-width: 2px;
 
 /* #fcc_test_suite_wrapper {
   display: none;
@@ -61,7 +32,7 @@ $checkbox-check-border-width: 3px;
 html, body { height: 100%; }
 
 html {
-  background: $bg-eggradients-television-star;
+  background: $html-background;
 }
 
 .section {
@@ -75,33 +46,45 @@ html {
 }
 
 .box {
-  background: hsla(0, 0%, 100%, .1);
-  box-shadow: inset 0 0 200px rgba(255, 255, 255, .05);
+  background: hsla($white-hsl, .1);
+  box-shadow: inset 0 0 200px hsla($white-hsl, .05);
+}
+
+.title, .subtitle {
+  filter: invert(100%);
+}
+
+.field > .label {
+  color: $materia-color-body-text-inverted;
+  margin: 0;
+}
+
+.field:not(:last-child) {
+  margin-bottom: 1rem;
 }
 
 .input, .select select, .textarea {
-  border-width: 1px;
-  border-color: $input-border-color;
-  background: none;
-  color: $body-text-color;
-  &:hover {
-    border-color: $input-border-color-hover;
-    &:focus {
-      border-color: $primary-color;
-    }
-  }
+  background: transparent;
+  color: $materia-color-body-text-inverted;
+
 }
 
 .input, .textarea {
-  &::placeholder { color: #8c9b9d; }
+  &::placeholder { 
+    color: $placeholder-text-color; 
+  }
 }
 
 select:invalid {
-  color: #8c9b9d;
+  color: $placeholder-text-color;
 }
 
 option[value=""][disabled] {
   display: none;
+}
+
+.field-checkable-group, .textarea {
+  margin-top: 0.5em;
 }
 
 .field-checkable-group {
@@ -113,11 +96,7 @@ option[value=""][disabled] {
   @media screen and (min-width: 769px) {
     grid-template-columns: repeat(4, 1fr);
   }
-}
 
-.field-checkable-group.input {
-  height: auto; 
-  padding: 1em;
   .radio, .checkbox {
     margin: 0;
   }
@@ -126,6 +105,7 @@ option[value=""][disabled] {
 .radio, .checkbox {
   display: block;
   padding-left: $checkable-padding-left;
+  margin: 0;
 
   input, span {
     display: block;
@@ -138,9 +118,7 @@ option[value=""][disabled] {
     width: 0;
 
     &:checked ~ .checkmark {
-      background-color: $primary-color;
-      border-color: $primary-color-hover;
-      border: none;
+      background-color: $materia-color-blue;
       &:after {
         display: block;
       }
@@ -149,10 +127,11 @@ option[value=""][disabled] {
 
   &:hover {
     input ~ .checkmark {
-      border-color: $primary-color-hover;
+      background-color: $checkmark-background-color-hover;
     }
+
     input:checked ~ .checkmark {
-      background-color: $primary-color-hover;
+      background-color: $materia-color-blue;
     }
   }
 
@@ -161,23 +140,26 @@ option[value=""][disabled] {
     top: 50%;
     left: 0;
     transform: translateY(-50%);
-    height: $checkable-button-size;
-    width: $checkable-button-size;
-    background-color: $checkable-background-color;
-    border: 1px solid #dbdee0;
+    height: $checkmark-size;
+    width: $checkmark-size;
+    background-color: $checkmark-background-color;
+
     &:after {
       content: "";
       position: absolute;
       display: none;
     }
   }
-  
+
+  .checkable-label-text {
+    filter: invert(100%);
+  }
 }
 
 .radio .checkmark {
   border-radius: 50%;
   &:after {
-    background: $checkable-checked-center-color;
+    background: $checkmark-checked-center-color;
     width: $radio-checked-center-size;
     height: $radio-checked-center-size;
     top: 50%;
@@ -194,8 +176,9 @@ option[value=""][disabled] {
     left: $checkbox-checked-center-left;
     width: $checkbox-checked-center-width;
     height: $checkbox-checked-center-height;
-    border: solid $checkable-checked-center-color;
+    border: solid $checkmark-checked-center-color;
     border-width: 0 $checkbox-check-border-width $checkbox-check-border-width 0;
     transform: rotate(45deg);
   }
 }
+
